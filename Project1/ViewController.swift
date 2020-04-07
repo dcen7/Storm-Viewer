@@ -25,6 +25,8 @@ class ViewController: UITableViewController  {
         for item in items {
             if item.hasPrefix("nssl") {
                 pictures.append(item)
+                pictures.sort()
+                
             }
         }
       
@@ -41,12 +43,13 @@ class ViewController: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
+        
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
-            // 2: success! Set its selectedImage property
+            
             vc.selectedImage = pictures[indexPath.row]
-
-            // 3: now push it onto the navigation controller
+            vc.totalNumber = pictures.count
+            vc.selectedPictureNumber = indexPath.row
+            
             navigationController?.pushViewController(vc, animated: true)
         }
     }
